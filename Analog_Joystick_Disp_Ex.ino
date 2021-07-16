@@ -28,8 +28,7 @@ void loop() {
   lcd.print(analogRead(X_pin));
   lcd.setCursor(8, 1);
   lcd.print("Y:");
-  lcd.println(analogRead(Y_pin));
-  lcd.print("   ");
+  lcd.print(analogRead(Y_pin));
 
 //  Serial.print("Switch:  ");
 //  Serial.print(digitalRead(SW_pin));
