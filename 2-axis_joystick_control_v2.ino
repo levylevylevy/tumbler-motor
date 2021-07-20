@@ -52,7 +52,7 @@ void moveSteps(int disX, int disY) {
   disX = abs(disX);
   disY = abs(disY);
 
-  // Estimate step ratio to reach the end point 
+  // Estimate step ratio to reach the end point
   // for each axis at around the same time
   if (disX >= disY) {
     xPerMove = disX / disY;
@@ -106,7 +106,7 @@ void setup() {
   // interrupts
   attachInterrupt(digitalPinToInterrupt(limSwitch1), hitLimit, FALLING);
   attachInterrupt(digitalPinToInterrupt(SW_pin), modeSwitch, FALLING);
-  
+
   // speed, unit unknown. max ~350
   xAxis.setSpeed(350);
   yAxis.setSpeed(350);
@@ -127,10 +127,12 @@ void loop() {
 
   // auto mode
   if (mode == 0) {
-    moveSteps(190, 50);
-    delay(500);
-    moveSteps(-190, -50);
-    delay(500);
+    int cirX[8] = {30, -30, -70, -70, -30, 30, 70, 70};
+    int cirY[8] = {30, 30, 70, -70, -30, -30, -70, 70};
+    
+    for(int i = 0; i < 8; i++) {
+      moveSteps(cirX[i], cirY[i]);
+    }
   }
 
   // Joystick mode
@@ -146,9 +148,9 @@ void loop() {
     lcd.println(yJoystick);
 
     // move at variable speed based on joystick position
-    moveSteps((xJoystick - 500) / 200, (yJoystick - 500) / 200);
+    moveSteps((xJoystick - 414) / 200, (yJoystick - 414) / 200);
   }
-  
+
   // reset variables for loop
   stopCurrentMove = false;
   noInterrupt = false;
